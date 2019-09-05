@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Psychic-Game</title>
+    <link rel="stylesheet" href="C:\Users\Kyle\Downloads\Psychic-Game\assets\css\reset.css">
+    <link rel="stylesheet" href="C:\Users\Kyle\Downloads\Psychic-Game\assets\css\style.css">
+</head>
+
+<body>
+
+    <div id="psychicGame">
+        <h1> The Psychic Game! </h1>
+        <p>Guess what letter I'm thinking of!</p>
+        <p>Wins:</p>
+        <p>Losses:</p>
+        <p>Guesses Left:</p>
+        <p>Your Guesses so far:</p>
+        <!--When the player wins, increase the Wins counter and start the game over again (without refreshing the page).
+        When the player loses, increase the Losses counter and restart the game without a page refresh (just like when the user wins).-->
+    </div>
+
+    <script type="text/javascript">
+
+        var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",];
+
+        var wins = 0;
+        var losses = 0;
+        var numGuesses = 9;
+        var guessChoices = [];
+
+        document.onkeyup = function (event) {
+
+            var options = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",];
+
+            var userGuess = event.key;
+
+            var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+
+            var html =
+                "<h1> The Psychic Game! </h1>" +
+                "<p>Guess what letter I'm thinking of!</p>" +
+                "<p>Wins:" + wins + "</p>" +
+                "<p>Losses: " + losses + "</p>" +
+                "<p>Guesses Left: " + numGuesses + "</p>" +
+                "<p>Your Guesses so far: " + guessChoices.join(", ") + "</p>";
+
+            document.querySelector("#psychicGame").innerHTML = html;
+
+            if (options.indexOf(userGuess) !== computerGuess) {
+
+                if (userGuess === computerGuess) {
+                    wins++;
+                    numGuesses = 9;
+                    guessChoices = [];
+                }
+
+                if (userGuess !== computerGuess) {
+                    numGuesses--;
+                    guessChoices.push(userGuess);
+                }
+
+                if (numGuesses === 0) {
+
+                    numGuesses = 9;
+                    losses++;
+                    guessChoices = [];
+                }
+            }
+        };
+    </script>
+</body>
+</html>
